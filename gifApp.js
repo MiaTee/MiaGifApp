@@ -1,10 +1,18 @@
 $(document).ready(function() {
   //creating array to store GIF categories
-  var topics = ["Cats", "Bunnies", "Dogs", "Birds", "Kiwi"];
+  var topics = [
+    "Corporate",
+    "Technology",
+    "Developers",
+    "Robots",
+    "JavaScript"
+  ];
   //iterate array to create button for each
   for (var i = 0; i < topics.length; i++) {
     $(".gif-button-div").append(
-      "<button class=button button5 >" + topics[i] + "</button>"
+      "<button class=button button5 class=thisButton >" +
+        topics[i] +
+        "</button>"
     );
   }
 
@@ -22,12 +30,13 @@ $(document).ready(function() {
   //AJAX API CALL
   $("button").click(function() {
     console.log("I have been clicked");
-    //define api url is where we get cats images from
-    var gifKeyword = $(this).val();
+    var gifKeyword = $(this).text();
     console.log(gifKeyword);
     var queryURL =
-      "https://api.giphy.com/v1/gifs/search?api_key=Tnr3edbTpbZKX3OPO5Fboy8UrzRXlCfi&q=kiwi&offset=0&rating=G&lang=en";
-
+      "https://api.giphy.com/v1/gifs/search?api_key=Tnr3edbTpbZKX3OPO5Fboy8UrzRXlCfi&q=" +
+      gifKeyword +
+      "&offset=0&rating=G&lang=en";
+    $("#images").empty();
     //ajax piece of code which will call the api using GET method
     $.ajax({
       url: queryURL,
